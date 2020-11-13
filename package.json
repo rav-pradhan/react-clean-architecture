@@ -151,5 +151,8 @@
     "presets": [
       "react-app"
     ]
+  },
+  "devDependencies": {
+    "uuidv4": "^6.2.5"
   }
 }
