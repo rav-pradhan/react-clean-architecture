@@ -1,8 +1,9 @@
 import BookshelfRequest from '../domain/BookshelfRequest'
 import IBookshelfRepository from '../repository/IBookshelfRepository'
+import { APIResponse } from '../repository/types/APIResponse'
 
 interface BookshelfUseCases {
-    createShelf(request: BookshelfRequest): void | Error
+    createShelf(request: BookshelfRequest): Promise<APIResponse>
 }
 
 export default class BookshelfService implements BookshelfUseCases {
@@ -12,9 +13,9 @@ export default class BookshelfService implements BookshelfUseCases {
         this.repository = repository
     }
 
-    public createShelf(request: BookshelfRequest) {
+    public async createShelf(request: BookshelfRequest): Promise<APIResponse> {
         if (this.isValidRequest(request)) {
-            return this.repository.create(request)
+            return await this.repository.create(request)
         }
         throw new Error("bookshelf request was invalid")
     }
