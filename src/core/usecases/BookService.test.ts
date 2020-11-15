@@ -1,20 +1,7 @@
 import BookRequest from '../domain/BookRequest'
 import Book from '../domain/Book'
-import IBookRepository from '../repository/IBookRepository'
 import BookService from './BookService'
-
-class MockBookRepository implements IBookRepository {
-    public postCalls: Array<BookRequest> = []
-
-    public store(request: BookRequest) {
-        this.postCalls.push(request)
-    }
-
-    public fetchBook(slug: string): Promise<Book> {
-        const book = new Book(slug, "A Game of Thrones", "George R. R. Martin", "A Game of Thrones is the first book of the epic fantasy series, 'A Song of Ice and Fire'")
-        return Promise.resolve(book)
-    }
-}
+import MockBookRepository from './mocks/MockBookRepository'
 
 describe('RecordBook usecase', () => {
     test('that a new book can be recorded', () => {
@@ -43,8 +30,6 @@ describe('RecordBook usecase', () => {
     })
 })
 
-
-
 describe("TakeBookFromShelf usecase", () => {
     test("that the user can take a book from a bookshelf", async () => {
         const bookToPickUpSlug: string = "a-game-of-thrones"
@@ -63,6 +48,18 @@ describe("TakeBookFromShelf usecase", () => {
     })
 })
 
+describe("ChangeBookDetails usecase", () => {
+    test("that the user can change a book's details", async () => {
+        const bookID: string = "abc-def-123"
+        const mockBookRepository = new MockBookRepository()
+        const bookService = new BookService(mockBookRepository)
+
+        bookService.changeBookDetails(bookID)
+
+        expect(mockBookRepository.changeBookCalls).toEqual(1)
+    })
+})
+
 function initialiseMocks(bookRequest: BookRequest) {
     const mockBookRepository = new MockBookRepository()
     return {
@@ -70,5 +67,4 @@ function initialiseMocks(bookRequest: BookRequest) {
         mockBookRepository,
         bookService: new BookService(mockBookRepository)
     }
-
 }

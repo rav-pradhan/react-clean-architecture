@@ -1,4 +1,7 @@
+import { uuid } from 'uuidv4'
+
 export default class Book {
+    id: string
     slug: string
     title: string
     author: string
@@ -9,5 +12,6 @@ export default class Book {
         this.title = title
         this.author = author
         this.notes = notes
+        this.id = uuid()
     }
 }

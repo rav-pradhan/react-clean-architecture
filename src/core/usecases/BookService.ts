@@ -5,6 +5,7 @@ import Book from '../domain/Book'
 interface BookUseCases {
     recordBook(request: BookRequest): void | Error
     pickUpBookFromShelf(bookSlug: string): Promise<Book>
+    changeBookDetails(bookID: string): void | Error
 }
 
 export default class BookService implements BookUseCases {
@@ -22,8 +23,11 @@ export default class BookService implements BookUseCases {
     }
 
     public async pickUpBookFromShelf(bookSlug: string): Promise<Book> {
-        const book = await this.repository.fetchBook(bookSlug)
-        return book
+        return await this.repository.fetchBook(bookSlug)
+    }
+
+    public changeBookDetails(bookID: string) {
+        return this.repository.updateBook(bookID)
     }
 
     private isValidRequest(request: BookRequest): boolean {
