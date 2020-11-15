@@ -10,21 +10,21 @@ describe('RecordBook usecase', () => {
             "George R. R. Martin",
             "Test book"
         )
-        const { mockBookRequest, mockBookRepository, bookService } = initialiseMocks(bookRequest)
+        const { mockBookRepository, bookService } = initialise(bookRequest)
 
-        bookService.recordBook(mockBookRequest)
+        bookService.recordBook(bookRequest)
         expect(mockBookRepository.postCalls.length).toEqual(1)
     })
 
-    test('that a book request is validated', () => {
+    test('that a book request is validated', async () => {
         const bookRequest: BookRequest = new BookRequest(
             "",
             "",
             "",
         )
-        const { mockBookRequest, mockBookRepository, bookService } = initialiseMocks(bookRequest)
+        const { mockBookRepository, bookService } = initialise(bookRequest)
 
-        expect(() => {bookService.recordBook(mockBookRequest)}).toThrow()
+        await expect(bookService.recordBook(bookRequest)).rejects.toThrow()
         expect(mockBookRepository.postCalls.length).toEqual(0)
     })
 })
@@ -49,20 +49,28 @@ describe("TakeBookFromShelf usecase", () => {
 
 describe("ChangeBookDetails usecase", () => {
     test("that the user can change a book's details", async () => {
-        const bookID: string = "abc-def-123"
+        const book = new Book("a-game-of-thrones", "A Game of Thrones", "Georgey Boy", "Test notes")
         const mockBookRepository = new MockBookRepository()
         const bookService = new BookService(mockBookRepository)
 
-        bookService.changeBookDetails(bookID)
+        const response = await bookService.changeBookDetails(book)
 
         expect(mockBookRepository.changeBookCalls).toEqual(1)
+        expect(response.code).toEqual(200)
+    })
+
+    test("that a request to update book details is validated", async () => {
+        const book = new Book("a-game-of-thrones", "", "Georgey Boy", "Test notes")
+        const mockBookRepository = new MockBookRepository()
+        const bookService = new BookService(mockBookRepository)
+
+        await expect(bookService.changeBookDetails(book)).rejects.toThrow()
     })
 })
 
-function initialiseMocks(bookRequest: BookRequest) {
+function initialise(bookRequest: BookRequest) {
     const mockBookRepository: MockBookRepository = new MockBookRepository()
     return {
-        mockBookRequest: bookRequest,
         mockBookRepository,
         bookService: new BookService(mockBookRepository)
     }

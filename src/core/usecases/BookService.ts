@@ -1,11 +1,12 @@
 import IBookRepository from '../repository/IBookRepository'
 import BookRequest from '../domain/BookRequest'
 import Book from '../domain/Book'
+import { APIResponse } from '../repository/types/APIResponse'
 
 interface BookUseCases {
-    recordBook(request: BookRequest): void | Error
+    recordBook(request: BookRequest): Promise<APIResponse>
     pickUpBookFromShelf(bookSlug: string): Promise<Book>
-    changeBookDetails(bookDetails: Book): void | Error
+    changeBookDetails(bookDetails: Book): Promise<APIResponse>
 }
 
 export default class BookService implements BookUseCases {
@@ -15,10 +16,10 @@ export default class BookService implements BookUseCases {
         this.repository = repository
     }
 
-    public recordBook(request: BookRequest) {
+    public async recordBook(request: BookRequest): Promise<APIResponse> {
         if (this.isValidRequest(request)) {
             const book = new Book(this.slugify(request.title), request.title, request.author, request.notes)
-            return this.repository.store(book)
+            return await this.repository.store(book)
         }
         throw new Error("book request was invalid")
     }
@@ -27,11 +28,14 @@ export default class BookService implements BookUseCases {
         return await this.repository.fetchBook(bookSlug)
     }
 
-    public changeBookDetails(bookDetails: Book) {
-        return this.repository.updateBook(bookDetails)
+    public async changeBookDetails(bookDetails: Book): Promise<APIResponse> {
+        if (this.isValidRequest(bookDetails)) {
+            return await this.repository.updateBook(bookDetails)
+        }
+        throw new Error("update book request was invalid")
     }
 
-    private isValidRequest(request: BookRequest): boolean {
+    private isValidRequest(request: object): boolean {
         const areTruthy = (el: string) => {return el ? true : false}
         return Object.values(request).every(areTruthy)
     }
