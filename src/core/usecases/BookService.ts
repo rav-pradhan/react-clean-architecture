@@ -5,7 +5,7 @@ import Book from '../domain/Book'
 interface BookUseCases {
     recordBook(request: BookRequest): void | Error
     pickUpBookFromShelf(bookSlug: string): Promise<Book>
-    changeBookDetails(bookID: string): void | Error
+    changeBookDetails(bookDetails: Book): void | Error
 }
 
 export default class BookService implements BookUseCases {
@@ -17,7 +17,8 @@ export default class BookService implements BookUseCases {
 
     public recordBook(request: BookRequest) {
         if (this.isValidRequest(request)) {
-            return this.repository.store(request)
+            const book = new Book(this.slugify(request.title), request.title, request.author, request.notes)
+            return this.repository.store(book)
         }
         throw new Error("book request was invalid")
     }
@@ -26,12 +27,16 @@ export default class BookService implements BookUseCases {
         return await this.repository.fetchBook(bookSlug)
     }
 
-    public changeBookDetails(bookID: string) {
-        return this.repository.updateBook(bookID)
+    public changeBookDetails(bookDetails: Book) {
+        return this.repository.updateBook(bookDetails)
     }
 
     private isValidRequest(request: BookRequest): boolean {
         const areTruthy = (el: string) => {return el ? true : false}
         return Object.values(request).every(areTruthy)
+    }
+
+    private slugify(bookTitle: string): string {
+        return bookTitle.split(" ").join("-")
     }
 }

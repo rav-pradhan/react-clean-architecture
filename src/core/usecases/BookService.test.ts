@@ -13,7 +13,6 @@ describe('RecordBook usecase', () => {
         const { mockBookRequest, mockBookRepository, bookService } = initialiseMocks(bookRequest)
 
         bookService.recordBook(mockBookRequest)
-
         expect(mockBookRepository.postCalls.length).toEqual(1)
     })
 

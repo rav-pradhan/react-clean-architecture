@@ -97,7 +97,7 @@
     ]
   },
   "jest": {
-     "roots": [
+    "roots": [
       "<rootDir>/src/web"
     ],
     "collectCoverageFrom": [
@@ -154,6 +154,7 @@
     ]
   },
   "devDependencies": {
+    "json-server": "^0.16.2",
     "uuidv4": "^6.2.5"
   }
 }

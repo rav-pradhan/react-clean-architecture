@@ -1,8 +1,7 @@
-import BookRequest from '../domain/BookRequest'
 import Book from '../domain/Book'
 
 export default interface IBookRepository {
-    store(request: BookRequest): void
+    store(request: Book): void
     fetchBook(slug: string): Promise<Book>
-    updateBook(bookID: string): void
+    updateBook(bookDetails: Book): void
 }
