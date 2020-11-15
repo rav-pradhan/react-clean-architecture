@@ -31,7 +31,7 @@ export default class BookService implements BookUseCases {
     }
 
     private isValidRequest(request: BookRequest): boolean {
-        const areFalsy = (el: string) => !el
-        return Object.values(request).some(areFalsy) ? false : true
+        const areTruthy = (el: string) => {return el ? true : false}
+        return Object.values(request).every(areTruthy)
     }
 }

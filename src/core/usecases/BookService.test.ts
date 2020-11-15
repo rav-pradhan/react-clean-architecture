@@ -61,7 +61,7 @@ describe("ChangeBookDetails usecase", () => {
 })
 
 function initialiseMocks(bookRequest: BookRequest) {
-    const mockBookRepository = new MockBookRepository()
+    const mockBookRepository: MockBookRepository = new MockBookRepository()
     return {
         mockBookRequest: bookRequest,
         mockBookRepository,

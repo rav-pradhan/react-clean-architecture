@@ -73,11 +73,10 @@
     "workbox-webpack-plugin": "5.1.4"
   },
   "scripts": {
-    "start": "node src/web/scripts/start.js",
-    "build": "node src/web/scripts/build.js",
-    "test:core": "jest --config src/core/scripts/jest.config.js",
-    "test:web": "node src/web/scripts/test.js",
-    "test:debug": "jest --showConfig"
+    "start": "node src/scripts/webstart.js",
+    "build": "node src/scripts/webbuild.js",
+    "test:web": "node src/scripts/webtest.js",
+    "test:core": "jest --config src/scripts/core.jest.config.js"
   },
   "eslintConfig": {
     "extends": [
