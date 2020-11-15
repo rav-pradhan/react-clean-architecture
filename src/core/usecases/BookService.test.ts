@@ -36,7 +36,7 @@ describe("TakeBookFromShelf usecase", () => {
         const bookService = new BookService(mockBookRepository)
 
         const bookDTO = await bookService.pickUpBookFromShelf(bookToPickUpSlug)
-        const book: Book = new Book(bookDTO.slug, bookDTO.title, bookDTO.author, bookDTO.notes)
+        const book: Book = new Book("12345", bookDTO.slug, bookDTO.title, bookDTO.author, bookDTO.notes)
 
         expect(book).toMatchObject({
             slug: "a-game-of-thrones",
@@ -49,7 +49,7 @@ describe("TakeBookFromShelf usecase", () => {
 
 describe("ChangeBookDetails usecase", () => {
     test("that the user can change a book's details", async () => {
-        const book = new Book("a-game-of-thrones", "A Game of Thrones", "Georgey Boy", "Test notes")
+        const book = new Book("123456", "a-game-of-thrones", "A Game of Thrones", "Georgey Boy", "Test notes")
         const mockBookRepository = new MockBookRepository()
         const bookService = new BookService(mockBookRepository)
 
@@ -60,7 +60,7 @@ describe("ChangeBookDetails usecase", () => {
     })
 
     test("that a request to update book details is validated", async () => {
-        const book = new Book("a-game-of-thrones", "", "Georgey Boy", "Test notes")
+        const book = new Book("12345", "a-game-of-thrones", "", "Georgey Boy", "Test notes")
         const mockBookRepository = new MockBookRepository()
         const bookService = new BookService(mockBookRepository)
 

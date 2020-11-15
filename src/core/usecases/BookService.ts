@@ -18,8 +18,7 @@ export default class BookService implements BookUseCases {
 
     public async recordBook(request: BookRequest): Promise<APIResponse> {
         if (this.isValidRequest(request)) {
-            const book = new Book(this.slugify(request.title), request.title, request.author, request.notes)
-            return await this.repository.store(book)
+            return await this.repository.store(request)
         }
         throw new Error("book request was invalid")
     }
