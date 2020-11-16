@@ -1,0 +1,26 @@
+{
+    "books": [
+        {
+            "id": "123457",
+            "slug": "a-game-of-thrones",
+            "title": "A Game of Thrones",
+            "author": "George R. R. Martin",
+            "notes": "A fantasy epic series of novels"
+        }
+    ],
+    "bookshelves": [
+        {
+            "id": "0a0a0af93rjfa",
+            "slug": "fantasy",
+            "title": "Fantasy",
+            "description": "A shelf full of fantasy novels",
+            "books": [
+                {
+                    "id": "123457",
+                    "title":"A Game of Thrones",
+                    "author":"George R. R. Martin"
+                }
+            ]
+        }
+    ]
+}
