@@ -2,14 +2,11 @@ import IBookRepository from '../repository/IBookRepository'
 import BookRequest from '../domain/BookRequest'
 import Book from '../domain/Book'
 import { APIResponse } from '../repository/types/APIResponse'
+import RecordBook from '../usecases/RecordBook'
+import PickUpBookFromShelf from '../usecases/PickUpBookFromShelf'
+import ChangeBookDetails from '../usecases/ChangeBookDetails'
 
-interface BookUseCases {
-    recordBook(request: BookRequest): Promise<APIResponse>
-    pickUpBookFromShelf(bookSlug: string): Promise<Book>
-    changeBookDetails(bookDetails: Book): Promise<APIResponse>
-}
-
-export default class BookService implements BookUseCases {
+export default class BookService implements RecordBook, PickUpBookFromShelf, ChangeBookDetails {
     repository: IBookRepository
 
     constructor(repository: IBookRepository) {

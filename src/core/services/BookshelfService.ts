@@ -1,12 +1,9 @@
 import BookshelfRequest from '../domain/BookshelfRequest'
 import IBookshelfRepository from '../repository/IBookshelfRepository'
 import { APIResponse } from '../repository/types/APIResponse'
+import CreateBookshelf from '../usecases/CreateBookshelf'
 
-interface BookshelfUseCases {
-    createShelf(request: BookshelfRequest): Promise<APIResponse>
-}
-
-export default class BookshelfService implements BookshelfUseCases {
+export default class BookshelfService implements CreateBookshelf {
     repository: IBookshelfRepository
 
     constructor(repository: IBookshelfRepository) {
