@@ -16,8 +16,8 @@ export default class MockBookRepository implements IBookRepository {
         return Promise.resolve(successResponse)
     }
 
-    public fetchBook(slug: string): Promise<Book> {
-        const book = new Book("123456", slug, "A Game of Thrones", "George R. R. Martin", "A Game of Thrones is the first book of the epic fantasy series, 'A Song of Ice and Fire'")
+    public fetchBook(id: string): Promise<Book> {
+        const book = new Book(id, "a-game-of-thrones", "A Game of Thrones", "George R. R. Martin", "A Game of Thrones is the first book of the epic fantasy series, 'A Song of Ice and Fire'")
         return Promise.resolve(book)
     }
 

@@ -20,8 +20,8 @@ export default class BookService implements RecordBook, PickUpBookFromShelf, Cha
         throw new Error("book request was invalid")
     }
 
-    public async pickUpBookFromShelf(bookSlug: string): Promise<Book> {
-        return await this.repository.fetchBook(bookSlug)
+    public async pickUpBookFromShelf(id: string): Promise<Book> {
+        return await this.repository.fetchBook(id)
     }
 
     public async changeBookDetails(bookDetails: Book): Promise<APIResponse> {
@@ -34,9 +34,5 @@ export default class BookService implements RecordBook, PickUpBookFromShelf, Cha
     private isValidRequest(request: object): boolean {
         const areTruthy = (el: string) => {return el ? true : false}
         return Object.values(request).every(areTruthy)
-    }
-
-    private slugify(bookTitle: string): string {
-        return bookTitle.split(" ").join("-")
     }
 }
