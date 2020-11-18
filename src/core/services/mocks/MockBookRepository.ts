@@ -6,6 +6,7 @@ import { APIResponse } from '../../repository/types/APIResponse'
 export default class MockBookRepository implements IBookRepository {
     public postCalls: Array<BookRequest> = []
     public changeBookCalls: number = 0
+    public toggleBookReadStatusCalls: number = 0
 
     public store(request: BookRequest): Promise<APIResponse> {
         this.postCalls.push(request)
@@ -23,6 +24,15 @@ export default class MockBookRepository implements IBookRepository {
 
     public updateBook(bookDetails: Book): Promise<APIResponse> {
         this.changeBookCalls++
+        const successResponse: APIResponse = {
+            code: 200,
+            message: "Book details updated"
+        }
+        return Promise.resolve(successResponse)
+    }
+
+    public toggleBookReadStatus(bookID: string): Promise<APIResponse> {
+        this.toggleBookReadStatusCalls++
         const successResponse: APIResponse = {
             code: 200,
             message: "Book details updated"

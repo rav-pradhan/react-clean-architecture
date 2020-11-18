@@ -37,6 +37,17 @@ export default class JsonServerBookRepository implements IBookRepository {
         return this.buildResponse(response)
     }
 
+    public async toggleBookReadStatus(bookID: string, newBookReadStatus: boolean): Promise<APIResponse> {
+        const response = await fetch(`${this.BASE_API_URL}/books/${bookID}`, {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newBookReadStatus)
+        })
+        return this.buildResponse(response)
+    }
+
     private buildResponse(response: Response): APIResponse {
         const apiResponse: APIResponse = {
             code: response.status,

@@ -8,7 +8,7 @@ describe('RecordBook usecase', () => {
         const bookRequest: BookRequest = new BookRequest(
             "A Game of Thrones",
             "George R. R. Martin",
-            "Test book"
+            "Test book",
         )
         const { mockBookRepository, bookService } = initialise(bookRequest)
 
@@ -65,6 +65,19 @@ describe("ChangeBookDetails usecase", () => {
         const bookService = new BookService(mockBookRepository)
 
         await expect(bookService.changeBookDetails(book)).rejects.toThrow()
+    })
+})
+
+describe("ToggleBookReadStatus usecase", () => {
+    test("that a request to mark book as read is accepted", async () => {
+        const book = new Book("123456", "a-game-of-thrones", "A Game of Thrones", "Georgey Boy", "Test notes")
+        const mockBookRepository = new MockBookRepository()
+        const bookService = new BookService(mockBookRepository)
+
+        const response = await bookService.toggleBookReadStatus(book.id, book.hasRead)
+
+        expect(mockBookRepository.toggleBookReadStatusCalls).toEqual(1)
+        expect(response.code).toEqual(200)
     })
 })
 
