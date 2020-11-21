@@ -1,7 +1,7 @@
 {
   "books": [
     {
-      "id": "abcd",
+      "id": 1,
       "slug": "a-game-of-thrones",
       "title": "A Game of Thrones",
       "author": "George R. R. Martin",
@@ -9,15 +9,15 @@
       "hasRead": true
     },
     {
-      "id": "1234",
+      "id": 2,
       "slug": "a-clash-of-kings",
       "title": "A Clash of Kings",
       "author": "George R. R. Martin",
       "notes": "The follow up to A Game of Thrones",
-      "hasRead": false
+      "hasRead": true
     },
     {
-      "id": "ccdf",
+      "id": 3,
       "slug": "sputnik-sweetheart",
       "title": "Sputnik Sweetheart",
       "author": "Haruki Murakami",
