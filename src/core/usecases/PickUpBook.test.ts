@@ -1,5 +1,5 @@
 import Book from "../domain/Book"
-import MockBookRepository from "../services/mocks/MockBookRepository"
+import MockBookRepository from "./mocks/MockBookRepository"
 import PickUpBook from "./PickUpBook"
 
 describe("PickUpBook usecase", () => {

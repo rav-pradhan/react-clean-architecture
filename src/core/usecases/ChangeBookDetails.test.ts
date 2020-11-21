@@ -1,6 +1,6 @@
 import Book from "../domain/Book";
 import { APIResponse } from "../repository/types/APIResponse";
-import MockBookRepository from "../services/mocks/MockBookRepository";
+import MockBookRepository from "./mocks/MockBookRepository";
 import ChangeBookDetails from "./ChangeBookDetails";
 
 describe("ChangeBookDetails usecase", () => {

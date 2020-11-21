@@ -4,7 +4,7 @@ import Book from '../../domain/Book'
 import { APIResponse } from '../../repository/types/APIResponse'
 
 export default class MockBookRepository implements IBookRepository {
-    public postCalls: Array<BookRequest> = []
+    public recordBookCalls: number = 0
     public changeBookCalls: number = 0
     public fetchBookCalls: number = 0
     public toggleBookReadStatusCalls: number = 0
@@ -15,8 +15,8 @@ export default class MockBookRepository implements IBookRepository {
         new Book("xyz123", "a-test", "A T", "Testy McTestface", "!")
     ]
 
-    public store(request: BookRequest): Promise<APIResponse> {
-        this.postCalls.push(request)
+    public recordBook(request: BookRequest): Promise<APIResponse> {
+        this.recordBookCalls++
         const successResponse: APIResponse = {
             code: 201,
             message: "Book created"
@@ -43,7 +43,7 @@ export default class MockBookRepository implements IBookRepository {
         this.toggleBookReadStatusCalls++
         const successResponse: APIResponse = {
             code: 200,
-            message: "Book details updated"
+            message: "Book read status updated"
         }
         return Promise.resolve(successResponse)
     }
