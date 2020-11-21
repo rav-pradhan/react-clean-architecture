@@ -17,19 +17,21 @@ export default ({ Layout, fetchBooks, toggleBookReadStatus }) => {
       <ul>
         {books.map((book) => (
           <li key={book.id}>
-            {book.title} - {book.author} (read? {renderReadStatus(book)})
+            {book.title} - {book.author} ({renderReadStatus(book)})
           </li>
         ))}
       </ul>
     );
 
     const renderReadStatus = (book) => (
-      <input
-        onClick={() => toggleBookReadStatus.invoke(book.id, book.hasRead)}
-        type="checkbox"
-        defaultChecked={book.hasRead}
-        value={book.hasRead}
-      />
+      <label><span className="visually-hidden">{`Has read ${book.title}`}</span>
+        <input
+          onClick={() => toggleBookReadStatus.invoke(book.id, book.hasRead)}
+          type="checkbox"
+          defaultChecked={book.hasRead}
+          value={book.hasRead}
+        />
+      </label>
     );
 
     return (
