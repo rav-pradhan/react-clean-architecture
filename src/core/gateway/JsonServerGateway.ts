@@ -3,8 +3,13 @@ import { APIResponse } from "./types/APIResponse";
 import BookRequest from "../domain/BookRequest";
 import IBookGateway from "./IBookGateway";
 
-export default class JsonServerBookGatewayy implements IBookGateway {
-    private BASE_API_URL: string = "localhost:3000"
+export default class JsonServerBookGateway implements IBookGateway {
+    private BASE_API_URL: string = "http://localhost:3000"
+
+    public async fetchBooks(): Promise<Book[]> {
+        const response = await (fetch(`${this.BASE_API_URL}/books`))
+        return response ? this.buildBooksList(await response.json()) : []
+    }
 
     public async recordBook(request: BookRequest): Promise<APIResponse> {
         const response = await fetch(`${this.BASE_API_URL}/books`, {
@@ -17,7 +22,7 @@ export default class JsonServerBookGatewayy implements IBookGateway {
         return this.buildResponse(response)
     }
 
-    public async fetchBook(slug: string): Promise<Book> {
+    public async pickUpBook(slug: string): Promise<Book> {
         const response = await fetch(`${this.BASE_API_URL}/books/${slug}`, {
             method: "GET",
             headers: {
@@ -49,6 +54,14 @@ export default class JsonServerBookGatewayy implements IBookGateway {
             })
         })
         return this.buildResponse(response)
+    }
+
+    private buildBooksList(response: Array<Book>): Array<Book> {
+        const books: Array<Book> = []
+        response.forEach(book => {
+            books.push(new Book(book.id, book.slug, book.title, book.author, book.notes, book.hasRead))
+        })
+        return books
     }
 
     private buildResponse(response: Response): APIResponse {

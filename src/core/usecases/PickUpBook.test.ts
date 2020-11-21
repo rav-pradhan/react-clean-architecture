@@ -36,7 +36,7 @@ class PickUpBookTester {
   }
 
   public ThenTheGatewayFetchMethodShouldBeCalled() {
-    expect(this.gateway.fetchBookCalls).toEqual(1)
+    expect(this.gateway.pickUpBookCalls).toEqual(1)
     return this
   }
 

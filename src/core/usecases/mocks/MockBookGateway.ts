@@ -6,14 +6,20 @@ import IBookGateway from '../../gateway/IBookGateway'
 export default class MockBookGateway implements IBookGateway {
     public recordBookCalls: number = 0
     public changeBookCalls: number = 0
-    public fetchBookCalls: number = 0
+    public pickUpBookCalls: number = 0
+    public fetchBooksCalls: number = 0
     public toggleBookReadStatusCalls: number = 0
 
     private books: Array<Book> = [
-        new Book("123456", "a-game-of-thrones", "A Game of Thrones", "George R. R. Martin", "A Game of Thrones is the first book of the epic fantasy series, 'A Song of Ice and Fire'"),
-        new Book("abcdef", "code-complete", "Code Complete", "Steve McConnell", "A practical handbook of software construction"),
-        new Book("xyz123", "a-test", "A T", "Testy McTestface", "!")
+        new Book("123456", "a-game-of-thrones", "A Game of Thrones", "George R. R. Martin", "A Game of Thrones is the first book of the epic fantasy series, 'A Song of Ice and Fire'", false),
+        new Book("abcdef", "code-complete", "Code Complete", "Steve McConnell", "A practical handbook of software construction", false),
+        new Book("xyz123", "a-test", "A T", "Testy McTestface", "!", false)
     ]
+
+    public fetchBooks(): Promise<Book[]> {
+        this.fetchBooksCalls++
+        return Promise.resolve(this.books)
+    }
 
     public recordBook(request: BookRequest): Promise<APIResponse> {
         this.recordBookCalls++
@@ -24,8 +30,8 @@ export default class MockBookGateway implements IBookGateway {
         return Promise.resolve(successResponse)
     }
 
-    public fetchBook(id: string): Promise<Book|undefined> {
-        this.fetchBookCalls++
+    public pickUpBook(id: string): Promise<Book|undefined> {
+        this.pickUpBookCalls++
         const book: Book|undefined = this.books.find(book => book.id === id)
         return Promise.resolve(book)
     }
