@@ -4,10 +4,9 @@ import { BrowserRouter as Router } from "react-router-dom";
 import "./index.css";
 import _ParReads from "./views/ParReads";
 import reportWebVitals from "./reportWebVitals";
-import { initialiseUseCases } from "../core/adapter/makeJsonServerDependencies";
+import { initialiseUseCasesWithJsonServerImplementation } from "../core/adapter/makeJsonServerDependencies";
 
-const initialisedUseCases = initialiseUseCases()
-const ParReads = _ParReads({ Router, ...initialisedUseCases });
+const ParReads = _ParReads({ Router, ...initialiseUseCasesWithJsonServerImplementation() });
 
 ReactDOM.render(
   <React.StrictMode>

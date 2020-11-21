@@ -5,7 +5,7 @@ import RecordBook from '../usecases/RecordBook'
 import ToggleBookReadStatus from '../usecases/ToggleBookReadStatus'
 import JsonServerGateway from '../gateway/JsonServerGateway'
 
-export const initialiseUseCases = () => {
+export const initialiseUseCasesWithJsonServerImplementation = () => {
     const gateway: JsonServerGateway = new JsonServerGateway()
     return {
         changeBookDetails: new ChangeBookDetails(gateway),
