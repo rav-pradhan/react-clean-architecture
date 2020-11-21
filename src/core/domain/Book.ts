@@ -3,6 +3,7 @@ export default class Book {
     slug: string
     title: string
     author: string
+    hasRead: boolean
     notes: string
 
     constructor(id: string, slug: string, title: string, author: string, notes: string) {
@@ -10,6 +11,7 @@ export default class Book {
         this.slug = slug
         this.title = title
         this.author = author
+        this.hasRead = false
         this.notes = notes
     }
 }
