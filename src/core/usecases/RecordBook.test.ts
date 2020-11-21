@@ -1,10 +1,10 @@
 import BookRequest from "../domain/BookRequest";
-import { APIResponse } from "../repository/types/APIResponse";
-import MockBookRepository from "./mocks/MockBookRepository";
+import { APIResponse } from "../gateway/types/APIResponse";
+import MockBookGateway from "./mocks/MockBookGateway";
 import RecordBook from "./RecordBook";
 
 describe("RecordBook usecase", () => {
-  test("the invoke method returns the correct status code on successful repository call", async () => {
+  test("the invoke method returns the correct status code on successful gateway call", async () => {
     const AValidBookRequest: BookRequest = new BookRequest(
       "A Clash of Kings",
       "George R. R. Marting",
@@ -13,7 +13,7 @@ describe("RecordBook usecase", () => {
 
     (await new RecordBookTester()
                 .WhenInvokeIsCalledWith(AValidBookRequest))
-                .ThenTheRepositoryRecordMethodShouldBeCalled()
+                .ThenTheGatewayRecordMethodShouldBeCalled()
                 .AndASuccessfulResponseShouldBeReceived();
   });
 
@@ -29,12 +29,12 @@ describe("RecordBook usecase", () => {
 
 class RecordBookTester {
   private usecase: RecordBook;
-  private repository: MockBookRepository;
+  private gateway: MockBookGateway;
   private response!: APIResponse;
 
   constructor() {
-    this.repository = new MockBookRepository();
-    this.usecase = new RecordBook(this.repository);
+    this.gateway = new MockBookGateway();
+    this.usecase = new RecordBook(this.gateway);
   }
 
   public async WhenInvokeIsCalledWith(request: BookRequest) {
@@ -42,8 +42,8 @@ class RecordBookTester {
     return Promise.resolve(this);
   }
 
-  public ThenTheRepositoryRecordMethodShouldBeCalled() {
-    expect(this.repository.recordBookCalls).toEqual(1);
+  public ThenTheGatewayRecordMethodShouldBeCalled() {
+    expect(this.gateway.recordBookCalls).toEqual(1);
     return this;
   }
 

@@ -1,16 +1,16 @@
 import Book from "../domain/Book";
-import IBookRepository from "../repository/IBookRepository";
-import { APIResponse } from "../repository/types/APIResponse";
+import IBookGateway from "../gateway/IBookGateway";
+import { APIResponse } from "../gateway/types/APIResponse";
 
 export default class ChangeBookDetails {
-    private repository: IBookRepository
-    constructor(repository: IBookRepository) {
-        this.repository = repository
+    private gateway: IBookGateway
+    constructor(gateway: IBookGateway) {
+        this.gateway = gateway
     }
 
     public async invoke(bookDetails: Book): Promise<APIResponse> {
         if (this.isValidRequest(bookDetails)) {
-            return await this.repository.updateBook(bookDetails)
+            return await this.gateway.updateBook(bookDetails)
         }
         throw new Error("update book request was invalid")
     }

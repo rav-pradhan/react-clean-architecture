@@ -1,9 +1,9 @@
 import Book from "../domain/Book";
 import { APIResponse } from "./types/APIResponse";
-import IBookRepository from "./IBookRepository";
 import BookRequest from "../domain/BookRequest";
+import IBookGateway from "./IBookGateway";
 
-export default class JsonServerBookRepository implements IBookRepository {
+export default class JsonServerBookGatewayy implements IBookGateway {
     private BASE_API_URL: string = "localhost:3000"
 
     public async recordBook(request: BookRequest): Promise<APIResponse> {

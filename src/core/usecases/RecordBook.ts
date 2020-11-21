@@ -1,16 +1,16 @@
 import BookRequest from "../domain/BookRequest";
-import IBookRepository from "../repository/IBookRepository";
-import { APIResponse } from "../repository/types/APIResponse";
+import IBookGateway from "../gateway/IBookGateway";
+import { APIResponse } from "../gateway/types/APIResponse";
 
 export default class RecordBook {
-    private repository: IBookRepository
-    constructor(repository: IBookRepository) {
-        this.repository = repository
+    private gateway: IBookGateway
+    constructor(gateway: IBookGateway) {
+        this.gateway = gateway
     }
 
     public async invoke(request: BookRequest): Promise<APIResponse> {
         if (this.isValidRequest(request)) {
-            return await this.repository.recordBook(request)
+            return await this.gateway.recordBook(request)
         }
         throw new Error("record book request was invalid")
     }

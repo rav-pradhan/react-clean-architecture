@@ -1,30 +1,30 @@
 import Book from "../domain/Book"
-import MockBookRepository from "./mocks/MockBookRepository"
+import MockBookGateway from "./mocks/MockBookGateway"
 import PickUpBook from "./PickUpBook"
 
 describe("PickUpBook usecase", () => {
-  test("the invoke method returns the correct status code on successful repository call", async () => {
+  test("the invoke method returns the correct status code on successful gateway call", async () => {
     (await new PickUpBookTester()
               .WhenInvokeIsCalledWithAnIDOf("abcdef"))
-              .ThenTheRepositoryFetchMethodShouldBeCalled()
+              .ThenTheGatewayFetchMethodShouldBeCalled()
               .AndTheResponseShouldBeThatBook()
   })
   test("an undefined call is returned if the book is not found", async () => {
     (await new PickUpBookTester()
               .WhenInvokeIsCalledWithAnIDOf("00000"))
-              .ThenTheRepositoryFetchMethodShouldBeCalled()
+              .ThenTheGatewayFetchMethodShouldBeCalled()
               .AndTheResponseShouldBeUndefined()
   })
 })
 
 class PickUpBookTester {
   private usecase: PickUpBook
-  private repository: MockBookRepository
+  private gateway: MockBookGateway
   private response: Book|undefined
 
   constructor() {
-    this.repository = new MockBookRepository()
-    this.usecase = new PickUpBook(this.repository)
+    this.gateway = new MockBookGateway()
+    this.usecase = new PickUpBook(this.gateway)
   }
 
   public async WhenInvokeIsCalledWithAnIDOf(bookID: string) {
@@ -35,8 +35,8 @@ class PickUpBookTester {
     return Promise.resolve(this)
   }
 
-  public ThenTheRepositoryFetchMethodShouldBeCalled() {
-    expect(this.repository.fetchBookCalls).toEqual(1)
+  public ThenTheGatewayFetchMethodShouldBeCalled() {
+    expect(this.gateway.fetchBookCalls).toEqual(1)
     return this
   }
 

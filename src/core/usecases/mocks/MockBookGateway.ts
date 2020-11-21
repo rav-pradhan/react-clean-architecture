@@ -1,9 +1,9 @@
-import IBookRepository from '../../repository/IBookRepository'
 import BookRequest from '../../domain/BookRequest'
 import Book from '../../domain/Book'
-import { APIResponse } from '../../repository/types/APIResponse'
+import { APIResponse } from '../../gateway/types/APIResponse'
+import IBookGateway from '../../gateway/IBookGateway'
 
-export default class MockBookRepository implements IBookRepository {
+export default class MockBookGateway implements IBookGateway {
     public recordBookCalls: number = 0
     public changeBookCalls: number = 0
     public fetchBookCalls: number = 0

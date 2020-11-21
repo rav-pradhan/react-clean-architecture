@@ -1,7 +1,7 @@
 import Book from "../domain/Book";
 import BookRequest from "../domain/BookRequest";
-import { APIResponse } from "../repository/types/APIResponse";
-import MockBookRepository from "./mocks/MockBookRepository";
+import { APIResponse } from "../gateway/types/APIResponse";
+import MockBookGateway from "./mocks/MockBookGateway";
 import ToggleBookReadStatus from "./ToggleBookReadStatus";
 
 describe("ToggleBookReadStatus usecase", () => {
@@ -17,12 +17,12 @@ describe("ToggleBookReadStatus usecase", () => {
 
 class ToggleBookReadStatusTester {
   private usecase: ToggleBookReadStatus;
-  private repository: MockBookRepository;
+  private gateway: MockBookGateway;
   private response!: APIResponse;
 
   constructor() {
-    this.repository = new MockBookRepository();
-    this.usecase = new ToggleBookReadStatus(this.repository);
+    this.gateway = new MockBookGateway();
+    this.usecase = new ToggleBookReadStatus(this.gateway);
   }
 
   public async GivenTheUsecaseIsInvoked(bookID: string, currentBookStatus: boolean) {
@@ -31,7 +31,7 @@ class ToggleBookReadStatusTester {
   }
 
   public ThenTheToggleBookReadStatusMethodShouldBeCalled() {
-    expect(this.repository.toggleBookReadStatusCalls).toEqual(1);
+    expect(this.gateway.toggleBookReadStatusCalls).toEqual(1);
     return this;
   }
 

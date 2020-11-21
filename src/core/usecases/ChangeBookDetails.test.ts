@@ -1,24 +1,24 @@
 import Book from "../domain/Book";
-import { APIResponse } from "../repository/types/APIResponse";
-import MockBookRepository from "./mocks/MockBookRepository";
+import { APIResponse } from "../gateway/types/APIResponse";
+import MockBookGateway from "./mocks/MockBookGateway";
 import ChangeBookDetails from "./ChangeBookDetails";
 
 describe("ChangeBookDetails usecase", () => {
   test("the invoke method returns the correct status code on successful repository call", async () => {
     (await new ChangeBookDetailsTester()
                 .WhenARequestIsMadeToUpdateBookDetails())
-                .ThenTheRepositoryChangeBookDetailsMethodShouldBeCalledOnce()
+                .ThenTheGatewayChangeBookDetailsMethodShouldBeCalledOnce()
                 .AndASuccessfulResponseShouldBeProvided();
   });
 });
 
 class ChangeBookDetailsTester {
   private usecase: ChangeBookDetails;
-  private repository: MockBookRepository;
+  private repository: MockBookGateway;
   private response!: APIResponse;
 
   constructor() {
-    this.repository = new MockBookRepository();
+    this.repository = new MockBookGateway();
     this.usecase = new ChangeBookDetails(this.repository);
   }
 
@@ -34,7 +34,7 @@ class ChangeBookDetailsTester {
     return this;
   }
 
-  public ThenTheRepositoryChangeBookDetailsMethodShouldBeCalledOnce() {
+  public ThenTheGatewayChangeBookDetailsMethodShouldBeCalledOnce() {
     expect(this.repository.changeBookCalls).toEqual(1);
     return this;
   }
