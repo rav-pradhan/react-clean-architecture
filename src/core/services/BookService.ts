@@ -3,11 +3,10 @@ import BookRequest from '../domain/BookRequest'
 import Book from '../domain/Book'
 import { APIResponse } from '../repository/types/APIResponse'
 import RecordBook from '../usecases/RecordBook'
-import PickUpBookFromShelf from '../usecases/PickUpBookFromShelf'
-import ChangeBookDetails from '../usecases/ChangeBookDetails'
+import PickUpBookFromShelf from '../usecases/PickUpBook'
 import MarkBookAsRead from '../usecases/ToggleBookReadStatus'
 
-export default class BookService implements RecordBook, PickUpBookFromShelf, ChangeBookDetails, MarkBookAsRead {
+export default class BookService implements RecordBook, MarkBookAsRead {
     repository: IBookRepository
 
     constructor(repository: IBookRepository) {
@@ -19,17 +18,6 @@ export default class BookService implements RecordBook, PickUpBookFromShelf, Cha
             return await this.repository.store(request)
         }
         throw new Error("book request was invalid")
-    }
-
-    public async pickUpBookFromShelf(id: string): Promise<Book> {
-        return await this.repository.fetchBook(id)
-    }
-
-    public async changeBookDetails(bookDetails: Book): Promise<APIResponse> {
-        if (this.isValidRequest(bookDetails)) {
-            return await this.repository.updateBook(bookDetails)
-        }
-        throw new Error("update book request was invalid")
     }
 
     public async toggleBookReadStatus(bookID: string, bookReadStatus: boolean): Promise<APIResponse> {

@@ -4,7 +4,7 @@ import IBookRepository from "./IBookRepository";
 
 export default class JsonServerBookRepository implements IBookRepository {
     private BASE_API_URL: string = "localhost:3000"
-    
+
     public async store(request: Book): Promise<APIResponse> {
         const response = await fetch(`${this.BASE_API_URL}/books`, {
             method: "POST",
@@ -39,11 +39,13 @@ export default class JsonServerBookRepository implements IBookRepository {
 
     public async toggleBookReadStatus(bookID: string, newBookReadStatus: boolean): Promise<APIResponse> {
         const response = await fetch(`${this.BASE_API_URL}/books/${bookID}`, {
-            method: "PUT",
+            method: "PATCH",
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(newBookReadStatus)
+            body: JSON.stringify({
+                hasRead: newBookReadStatus
+            })
         })
         return this.buildResponse(response)
     }

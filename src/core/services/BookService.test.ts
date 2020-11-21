@@ -29,45 +29,6 @@ describe('RecordBook usecase', () => {
     })
 })
 
-describe("TakeBookFromShelf usecase", () => {
-    test("that the user can take a book from a bookshelf", async () => {
-        const bookToPickUpSlug: string = "a-game-of-thrones"
-        const mockBookRepository = new MockBookRepository()
-        const bookService = new BookService(mockBookRepository)
-
-        const bookDTO = await bookService.pickUpBookFromShelf(bookToPickUpSlug)
-        const book: Book = new Book("12345", bookDTO.slug, bookDTO.title, bookDTO.author, bookDTO.notes)
-
-        expect(book).toMatchObject({
-            slug: "a-game-of-thrones",
-            title: "A Game of Thrones",
-            author: "George R. R. Martin",
-            notes: "A Game of Thrones is the first book of the epic fantasy series, 'A Song of Ice and Fire'"
-        })
-    })
-})
-
-describe("ChangeBookDetails usecase", () => {
-    test("that the user can change a book's details", async () => {
-        const book = new Book("123456", "a-game-of-thrones", "A Game of Thrones", "Georgey Boy", "Test notes")
-        const mockBookRepository = new MockBookRepository()
-        const bookService = new BookService(mockBookRepository)
-
-        const response = await bookService.changeBookDetails(book)
-
-        expect(mockBookRepository.changeBookCalls).toEqual(1)
-        expect(response.code).toEqual(200)
-    })
-
-    test("that a request to update book details is validated", async () => {
-        const book = new Book("12345", "a-game-of-thrones", "", "Georgey Boy", "Test notes")
-        const mockBookRepository = new MockBookRepository()
-        const bookService = new BookService(mockBookRepository)
-
-        await expect(bookService.changeBookDetails(book)).rejects.toThrow()
-    })
-})
-
 describe("ToggleBookReadStatus usecase", () => {
     test("that a request to mark book as read is accepted", async () => {
         const book = new Book("123456", "a-game-of-thrones", "A Game of Thrones", "Georgey Boy", "Test notes")
