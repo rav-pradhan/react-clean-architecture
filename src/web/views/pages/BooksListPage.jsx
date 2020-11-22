@@ -16,8 +16,9 @@ export default ({ Layout, fetchBooks, toggleBookReadStatus }) => {
     const renderBooksList = () => (
       <ul>
         {books.map((book) => (
-          <li key={book.id}>
-            {book.title} - {book.author} ({renderReadStatus(book)})
+          <li className="books-list__row" key={book.id}>
+            <p>{book.title} - {book.author}</p> 
+            <p>({renderReadStatus(book)})</p>
           </li>
         ))}
       </ul>
@@ -36,7 +37,6 @@ export default ({ Layout, fetchBooks, toggleBookReadStatus }) => {
 
     return (
       <Layout>
-        <h2>Books</h2>
         {isLoading ? <p>Loading...</p> : renderBooksList()}
       </Layout>
     );

@@ -2,7 +2,7 @@
 import React from "react";
 
 export default () => ({ children }) => (
-  <main>
+  <main className="App">
     <h1>ParReads - A Slightly Less Good Goodreads</h1>
     {children}
   </main>
