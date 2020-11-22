@@ -28,7 +28,8 @@ class ChangeBookDetailsTester {
       "a-game-of-thrones",
       "A Game of Thrones",
       "Georgey Boy",
-      "Test notes"
+      "Test notes",
+      false
     );
     this.response = await this.usecase.invoke(book);
     return this;

@@ -6,7 +6,7 @@ import ToggleBookReadStatus from "./ToggleBookReadStatus";
 
 describe("ToggleBookReadStatus usecase", () => {
   test("that a request to mark book as read is accepted", async () => {
-    const finishedBook = new Book("123456", "a-game-of-thrones", "A Game of Thrones", "Georgey Boy", "Test notes");
+    const finishedBook = new Book("123456", "a-game-of-thrones", "A Game of Thrones", "Georgey Boy", "Test notes", false);
 
     (await new ToggleBookReadStatusTester()
                 .GivenTheUsecaseIsInvoked(finishedBook.id, finishedBook.hasRead))
