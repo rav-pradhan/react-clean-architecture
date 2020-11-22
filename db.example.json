@@ -1,0 +1,20 @@
+{
+    "books": [
+      {
+        "id": "2",
+        "slug": "a-game-of-thrones",
+        "title": "A Game of Thrones",
+        "author": "George R. R. Martin",
+        "notes": "The first in the epic fantasy series",
+        "hasRead": false
+      },
+      {
+        "id": "2",
+        "slug": "a-clash-of-kings",
+        "title": "A Clash of Kings",
+        "author": "George R. R. Martin",
+        "notes": "The follow up to A Game of Thrones",
+        "hasRead": false
+      }
+    ]
+  }

@@ -30,7 +30,7 @@ class PickUpBookTester {
   public async WhenInvokeIsCalledWithAnIDOf(bookID: string) {
     const response = await this.usecase.invoke(bookID)
     if (response) {
-      this.response = new Book(response.id, response.slug, response.title, response.author, response.notes)
+      this.response = new Book(response.id, response.slug, response.title, response.author, response.notes, false)
     }
     return Promise.resolve(this)
   }
@@ -41,7 +41,7 @@ class PickUpBookTester {
   }
 
   public AndTheResponseShouldBeThatBook(): void {
-    expect(this.response).toEqual(new Book("abcdef", "code-complete", "Code Complete", "Steve McConnell", "A practical handbook of software construction"))
+    expect(this.response).toEqual(new Book("abcdef", "code-complete", "Code Complete", "Steve McConnell", "A practical handbook of software construction", false))
   }
 
   public AndTheResponseShouldBeUndefined() {
